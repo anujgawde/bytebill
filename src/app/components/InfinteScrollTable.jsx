@@ -6,10 +6,11 @@ export default function InfiniteScrollTable({ openExpense }) {
   // Assume data is stored in local storage as a JSON string
   const [data, setData] = useState([]);
   const [visibleData, setVisibleData] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
+  // const [hasMore, setHasMore] = useState(true);
   const [itemsToLoad, setItemsToLoad] = useState(20); // Number of items to load each time
 
   useEffect(() => {
+    setItemsToLoad(20);
     // Load data from local storage once
     const storedData =
       JSON.parse(localStorage.getItem("reported_expenses")) || [];
@@ -38,7 +39,7 @@ export default function InfiniteScrollTable({ openExpense }) {
       visibleData.length + itemsToLoad
     );
     setVisibleData((prevVisibleData) => [...prevVisibleData, ...nextData]);
-    if (visibleData.length + itemsToLoad >= data.length) setHasMore(false);
+    // if (visibleData.length + itemsToLoad >= data.length) setHasMore(false);
   };
 
   return (
@@ -55,7 +56,7 @@ export default function InfiniteScrollTable({ openExpense }) {
 
         {/* Data Rows */}
         <div>
-          {visibleData.map((expense, index) => (
+          {visibleData.map((expense) => (
             <div
               onClick={() => openExpense(expense.id)}
               key={expense.id}
@@ -80,9 +81,6 @@ export default function InfiniteScrollTable({ openExpense }) {
           </div>
         )}
       </div>
-
-      {/* No more data message */}
-      {/* {!hasMore && <p className="text-center p-4">No more data to load</p>} */}
     </div>
   );
 }

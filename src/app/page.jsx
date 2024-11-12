@@ -3,7 +3,6 @@ import { useState } from "react";
 import InfiniteScrollTable from "./components/InfinteScrollTable";
 import { ref, getDownloadURL, listAll } from "firebase/storage";
 import { storage } from "@/config/firebase";
-import firebase from "firebase/compat/app";
 
 export default function Home() {
   const [selectedExpense, setSelectedExpense] = useState({
@@ -39,6 +38,7 @@ export default function Home() {
       })
       .catch((error) => {
         // Handle any errors
+        console.log(error);
       });
 
     setSelectedExpense(expense);
