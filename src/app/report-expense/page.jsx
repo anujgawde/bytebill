@@ -116,7 +116,7 @@ export default function ReportExpensePage() {
     let fileBase64 = await getBase64(file);
     const storageRef = ref(storage, `${expenseId}/${file?.name}`);
 
-    uploadString(storageRef, fileBase64, "data_url").then((snapshot) => {});
+    uploadString(storageRef, fileBase64, "data_url").then(() => {});
   };
 
   // TODO: file is a file uploaded by user. Update Type
