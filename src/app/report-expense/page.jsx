@@ -51,16 +51,19 @@ export default function ReportExpensePage() {
       } else {
         expenseType = "Miscellaneous";
       }
+      console.log(response.data.fields);
       const extractedBillData = {
         id: uuidv4(),
-        merchantAddress: response.data.fields.MerchantAddress.content,
-        merchantName: response.data.fields.MerchantName.content,
-        merchantPhoneNumber: response.data.fields.MerchantPhoneNumber.content,
-        billTotal: response.data.fields.Total.value,
+        merchantAddress: response.data?.fields?.MerchantAddress?.content,
+        merchantName: response.data?.fields?.MerchantName?.content,
+        merchantPhoneNumber:
+          response.data?.fields?.MerchantPhoneNumber?.content,
+        billTotal: response.data?.fields?.Total?.value,
         docType: expenseType,
-        transactionDate: new Date(response.data.fields.TransactionDate.value)
-          .toISOString()
-          .split("T")[0],
+        transactionDate:
+          new Date(response?.data?.fields?.TransactionDate?.value)
+            .toISOString()
+            .split("T")[0] ?? new Date().toISOString().split("T")[0],
       };
       setExtractedBillDetails(extractedBillData);
     } catch (error) {
