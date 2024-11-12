@@ -13,7 +13,6 @@ export default function Home() {
     billTotal: 0,
     docType: "",
     transactionDate: "",
-    currency: "",
   });
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [isUpdatingExpense, setIsUpdatingExpense] = useState(false);
@@ -29,11 +28,9 @@ export default function Home() {
     const listRef = ref(storage, `${expenseId}/`);
 
     const allFiles = await listAll(listRef);
-    console.log();
 
     getDownloadURL(ref(storage, allFiles.items[0]._location.path_))
       .then((url) => {
-        console.log(url, "url");
         setReceiptUrl(url);
       })
       .catch((error) => {
@@ -155,7 +152,7 @@ export default function Home() {
               </div>
               <div className="space-y-1">
                 <label className="font-semibold" htmlFor="merchant-address">
-                  Billed Amount ({selectedExpense.currency})
+                  Billed Amount
                 </label>
                 <input
                   type="number"

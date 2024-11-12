@@ -60,7 +60,7 @@ export default function InfiniteScrollTable({ openExpense }) {
             <div
               onClick={() => openExpense(expense.id)}
               key={expense.id}
-              className={`font-medium hover:bg-gray-50 hover:shadow-lg hover:rounded-md cursor-pointer duration-75 ease-in-out transition-all flex bg-white border-b last-of-type:border-none`}
+              className={`font-medium hover:bg-gray-50  hover:rounded-md cursor-pointer duration-75 ease-in-out transition-all flex bg-white border-b last-of-type:border-none`}
             >
               <div className="py-2 px-4 flex-1">{expense.merchantName}</div>
               <div className="py-2 px-4 flex-1">{expense.docType}</div>

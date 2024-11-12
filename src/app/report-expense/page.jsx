@@ -21,7 +21,6 @@ export default function ReportExpensePage() {
     billTotal: 0.0,
     docType: "",
     transactionDate: "",
-    currency: "",
   });
 
   const handleUpload = async (event) => {
@@ -42,19 +41,16 @@ export default function ReportExpensePage() {
       //   "http://localhost:8001/expenses/upload-receipt",
       //   formData
       // );
-
       const response = await axios.post("api/upload-receipt", formData);
       console.log(response.data);
       let expenseType = "";
-
       if (response.data.docType === "receipt.retailMeal") {
-        expenseType = "Restaurant";
+        expenseType = "Food";
       } else if (response.data.docType === "receipt.hotel") {
         expenseType = "Hotel";
       } else {
         expenseType = "Miscellaneous";
       }
-
       const extractedBillData = {
         id: uuidv4(),
         merchantAddress: response.data.fields.MerchantAddress.content,
@@ -65,10 +61,7 @@ export default function ReportExpensePage() {
         transactionDate: new Date(response.data.fields.TransactionDate.value)
           .toISOString()
           .split("T")[0],
-        currency:
-          response.data.fields.Total?.valueCurrency?.currencySymbol ?? "$",
       };
-
       setExtractedBillDetails(extractedBillData);
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -95,7 +88,6 @@ export default function ReportExpensePage() {
       billTotal: 0.0,
       docType: "",
       transactionDate: "",
-      currency: "",
     });
   };
 
@@ -124,9 +116,7 @@ export default function ReportExpensePage() {
     let fileBase64 = await getBase64(file);
     const storageRef = ref(storage, `${expenseId}/${file?.name}`);
 
-    uploadString(storageRef, fileBase64, "data_url").then((snapshot) => {
-      console.log("Uploaded a data_url string!", snapshot);
-    });
+    uploadString(storageRef, fileBase64, "data_url").then((snapshot) => {});
   };
 
   // TODO: file is a file uploaded by user. Update Type
@@ -142,28 +132,27 @@ export default function ReportExpensePage() {
       // on reader load somthing...
       reader.onload = () => {
         baseURL = reader.result;
-        console.log(baseURL);
         resolve(baseURL);
       };
     });
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen h-screen overflow-y-auto flex flex-col">
+    <div className="bg-gray-50 min-h-screen h-screen overflow-y-auto flex flex-col max-h-[90%]">
       {/* <form onSubmit={handleUpload}>
         <input type="file" onChange={handleFileChange} />
         <button type="submit">Upload</button>
         <p>{status}</p>
       </form> */}
-      <div className="py-6">
+      <div className="pt-6">
         <p className="text-4xl text-gray-700 font-bold text-center">
           <span className="font-thin italic">byte</span>
           <span className="text-primary">bill</span>
         </p>
       </div>
 
-      <div className=" flex justify-between items-center px-16 space-x-8">
-        <div className="relative bg-gray-100 hover:border-gray-500 z-30 transition-all ease-in delay-[0.1] w-1/2 h-full border-dashed border-2 rounded-lg flex justify-center items-center ">
+      <div className="max-h-[100%] h-full flex justify-between items-center px-16 space-x-8 py-8">
+        <div className="relative flex-1 bg-gray-100 hover:border-gray-500 z-30 transition-all ease-in delay-[0.1] w-1/2 h-full border-dashed border-2 rounded-lg flex justify-center items-center ">
           {file && (
             <button onClick={resetFile}>
               <img
@@ -173,16 +162,18 @@ export default function ReportExpensePage() {
             </button>
           )}
 
-          {file && file.type === "image/png" && (
-            <img src={fileUrl} className="w-full h-full z-50 max-h-fit" />
+          {file && file.type.startsWith("image/") && (
+            <img src={fileUrl} className="z-40 object-contain max-h-[550px]" />
           )}
 
           {!file && (
             <>
               <label className="font-semibold text-2xl text-gray-400  absolute ">
                 Drop your file anywhere, or click to upload.
+                <p className="text-center">(Allowed Fyle Types: .jpg, .png)</p>
               </label>
               <input
+                accept="image/png, image/jpeg"
                 onChange={handleUpload}
                 className="opacity-0 h-full w-full hover:cursor-pointer absolute "
                 type="file"
@@ -195,7 +186,7 @@ export default function ReportExpensePage() {
             </div>
           )}
         </div>
-        <div className="relative bg-gray-100 w-1/2 flex-1 overflow-auto flex-col border-2 rounded-lg flex py-6 px-6 font-semibold text-gray-700">
+        <div className="relative h-full bg-gray-100 w-1/2 flex-1 overflow-auto flex-col border-2 rounded-lg flex py-6 px-6 font-semibold text-gray-700">
           <p className="text-3xl">Receipt Details</p>
 
           <div className="space-y-2 my-4 overflow-y-auto ">
@@ -237,7 +228,7 @@ export default function ReportExpensePage() {
             </div>
             <div className="space-y-1">
               <label className="font-semibold" htmlFor="merchant-address">
-                Billed Amount ({extractedBillDetails.currency})
+                Billed Amount
               </label>
               <input
                 type="number"
