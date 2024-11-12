@@ -80,7 +80,7 @@ export default function Home() {
 
   return (
     <div className=" min-h-screen h-screen overflow-y-auto flex flex-col">
-      <div className="py-6">
+      <div className="pt-6">
         <p className="text-4xl text-gray-700 font-bold text-center">
           <span className="font-thin italic">byte</span>
           <span className="text-primary">bill</span>

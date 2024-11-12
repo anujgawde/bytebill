@@ -54,11 +54,11 @@ export default function ReportExpensePage() {
       console.log(response.data.fields);
       const extractedBillData = {
         id: uuidv4(),
-        merchantAddress: response.data?.fields?.MerchantAddress?.content,
-        merchantName: response.data?.fields?.MerchantName?.content,
+        merchantAddress: response.data?.fields?.MerchantAddress?.content ?? "",
+        merchantName: response.data?.fields?.MerchantName?.content ?? "",
         merchantPhoneNumber:
-          response.data?.fields?.MerchantPhoneNumber?.content,
-        billTotal: response.data?.fields?.Total?.value,
+          response.data?.fields?.MerchantPhoneNumber?.content ?? "",
+        billTotal: response.data?.fields?.Total?.value ?? 0.0,
         docType: expenseType,
         transactionDate:
           new Date(response?.data?.fields?.TransactionDate?.value)
@@ -239,7 +239,7 @@ export default function ReportExpensePage() {
                 onChange={(e) => {
                   handleDetailChange("billTotal", parseFloat(e.target.value));
                 }}
-                value={extractedBillDetails.billTotal.toString()}
+                value={extractedBillDetails.billTotal?.toString()}
                 className="w-full py-1 px-4 rounded-md border outline-black"
               />
             </div>

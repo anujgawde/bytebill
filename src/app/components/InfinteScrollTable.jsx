@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import React from "react";
 
@@ -44,6 +45,14 @@ export default function InfiniteScrollTable({ openExpense }) {
 
   return (
     <div className="container mx-auto h-full max-h-full overflow-y-auto rounded-lg mb-8">
+      <div className="flex justify-end items-center my-2">
+        <Link
+          href="/report-expense"
+          className={`rounded-md bg-primary py-2 px-8 text-white font-semibold flex justify-center items-center disabled:bg-primary-light`}
+        >
+          <p>Add Expense</p>
+        </Link>
+      </div>
       <div className="bg-white h-full border rounded-lg relative max-h-full overflow-y-auto">
         {/* Header */}
         <div className="flex bg-gray-100 text-gray-700 font-bold sticky right-0 top-0 left-0 rounded-t-lg">
