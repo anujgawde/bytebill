@@ -57,6 +57,7 @@ export default function Home() {
   };
 
   const updateExpense = async () => {
+    setIsUpdatingExpense(true);
     const reportedExpenses = JSON.parse(
       localStorage.getItem("reported_expenses")
     );
@@ -77,6 +78,7 @@ export default function Home() {
         JSON.stringify(reportedExpenses)
       );
     }
+    setIsUpdatingExpense(false);
   };
 
   return (
@@ -157,10 +159,11 @@ export default function Home() {
                 </label>
                 <input
                   type="number"
+                  min={0.0}
                   onChange={(e) => {
                     handleDetailChange("billTotal", parseFloat(e.target.value));
                   }}
-                  value={selectedExpense.billTotal}
+                  value={selectedExpense.billTotal.toString()}
                   className="w-full py-1 px-4 rounded-md border outline-black"
                 />
               </div>
@@ -193,6 +196,7 @@ export default function Home() {
 
             <div className="flex justify-center items-center my-2">
               <button
+                disabled={isUpdatingExpense}
                 onClick={updateExpense}
                 className="rounded-md bg-primary py-2 w-full text-white font-semibold flex justify-center items-center"
               >
