@@ -270,7 +270,7 @@ export default function ReportExpensePage() {
           {/* CTAs */}
           <div className="flex justify-center items-center my-2">
             <button
-              disabled={isLoading || !file}
+              disabled={isLoading || !file || isSubmittingReport}
               onClick={submitExpense}
               className={`rounded-md bg-primary py-2 w-full text-white font-semibold flex justify-center items-center disabled:bg-primary-light`}
             >
