@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Bytebill - Expense Management Feature
 
-First, run the development server:
+Bytebill is a full-stack expense management application built with **Next.js**. This feature allows users to upload receipts (bills), extract relevant expense data, and manage their expenses seamlessly. Users can verify and edit extracted data, submit expenses, and view or manage their reported expenses.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Receipt Upload and Data Extraction
+- Upload receipt images to extract data such as date, amount, and vendor using **Azure Document Intelligence**.
+- Automatically fills key fields in the expense form for user verification and editing.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Expense Management
+- **Submit Expense**: Users can finalize their expenses and submit them for record-keeping.
+- **All Expenses Page**: Displays a list of all reported expenses with key details.
 
-## Learn More
+### Expense Details View
+- **Sliding Panel**: View expense details by clicking on an expense row. 
+- **Editable Data**: Update expense details directly in the panel.
+- **Receipt Image**: View the original uploaded receipt for reference.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Next.js**: Framework for building the frontend and backend (API integration).
+- **Microsoft Azure**: Document Intelligence model for extracting data from receipts.
+- **Firebase Storage**: For securely storing receipt images.
+- **TailwindCSS**: For responsive and modern styling.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## How It Works
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Upload Receipt**:
+   - Users upload a receipt image.
+   - The backend calls the Azure Document Intelligence model to extract receipt data.
+2. **Expense Form**:
+   - Extracted data populates key fields (editable by the user).
+   - Users verify and correct data, then submit the expense.
+3. **All Expenses**:
+   - Displays a list of submitted expenses.
+   - Clicking an expense row opens a detailed sliding panel.
+4. **Expense Details**:
+   - Edit expense details or view the original uploaded receipt.
+
+---
+
+## Prerequisites
+
+- Node.js (v14 or later)
+- Firebase account for image storage
+- Azure account with the Document Intelligence service configured
+- API key and endpoint for Azure Document Intelligence
+
+---
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/bytebill.git
+   cd bytebill
+2. Install dependencies:
+   ```bash
+   npm install
+3. Configure environment variables: Create a `.env.local` file in the root of the project and add the following:
+   ```bash
+   AZURE_FORM_RECOGNIZER_ENDPOINT=<your-endpoint>
+   AZURE_FORM_RECOGNIZER_KEY=<your-api-key>
+   AZURE_FORM_RECOGNIZER_MODEL=<your-azure-model> 'prebuilt-receipt' in this case
+   FIREBASE_API_KEY=<your-firebase-api-key> 
+   FIREBASE_AUTH_DOMAIN=<your-firebase-auth-domain>
+   FIREBASE_PROJECT_ID=<your-firebase-project-id> 
+   FIREBASE_STORAGE_BUCKET=<your-firebase-storage-bucket>
+   FIREBASE_MESSAGING_SENDER_ID=<your-firebase-messaging-sender-id>
+   FIREBASE_APP_ID=<your-firebase-app-id>
+   FIREBASE_MEASUREMENT_ID=<your-firebase-measurement-id>
+4. Start the development server::
+   ```bash
+   npm run dev
+## Notes
+
+1.  **API Simplification**:
+    
+    -   For simplicity, the APIs for Azure integration are implemented directly in Next.js.
+    -   Alternatively, you can use the [Bytebill Server](https://github.com/anujgawde/bytebill-server) (NestJS) for the backend and update the frontend API calls.
+
+## Stay in touch
+
+- Author - [Anuj Gawde](https://x.com/axgdevv)
