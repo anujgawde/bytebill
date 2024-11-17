@@ -3,6 +3,7 @@ import { useState } from "react";
 import InfiniteScrollTable from "./components/InfinteScrollTable";
 import { ref, getDownloadURL, listAll } from "firebase/storage";
 import { storage } from "@/config/firebase";
+import Link from "next/link";
 
 export default function Home() {
   const [selectedExpense, setSelectedExpense] = useState({
@@ -76,15 +77,18 @@ export default function Home() {
       );
     }
     setIsUpdatingExpense(false);
+    window.location.reload();
   };
 
   return (
     <div className=" min-h-screen h-screen overflow-y-auto flex flex-col">
       <div className="pt-6">
-        <p className="text-4xl text-gray-700 font-bold text-center">
-          <span className="font-thin italic">byte</span>
-          <span className="text-primary">bill</span>
-        </p>
+        <Link href="/">
+          <div className="text-4xl text-gray-700 font-bold text-center">
+            <span className="font-thin italic">byte</span>
+            <span className="text-primary">bill</span>
+          </div>
+        </Link>
       </div>
 
       <InfiniteScrollTable openExpense={openExpensePanel} />

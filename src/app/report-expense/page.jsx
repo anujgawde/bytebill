@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { storage } from "@/config/firebase";
 import { ref, uploadString } from "firebase/storage";
+import Link from "next/link";
 
 export default function ReportExpensePage() {
   const router = useRouter();
@@ -110,16 +111,16 @@ export default function ReportExpensePage() {
     localStorage.setItem("reported_expenses", JSON.stringify(updatedExpenses));
 
     await uploadReceipt(extractedBillDetails.id);
-
-    setIsSubmittingReport(false);
-    router.push("/");
   };
 
   const uploadReceipt = async (expenseId) => {
     let fileBase64 = await getBase64(file);
     const storageRef = ref(storage, `${expenseId}/${file?.name}`);
 
-    uploadString(storageRef, fileBase64, "data_url").then(() => {});
+    uploadString(storageRef, fileBase64, "data_url").then(() => {
+      setIsSubmittingReport(false);
+      router.push("/");
+    });
   };
 
   // TODO: file is a file uploaded by user. Update Type
@@ -148,10 +149,12 @@ export default function ReportExpensePage() {
         <p>{status}</p>
       </form> */}
       <div className="pt-6">
-        <p className="text-4xl text-gray-700 font-bold text-center">
-          <span className="font-thin italic">byte</span>
-          <span className="text-primary">bill</span>
-        </p>
+        <Link href="/">
+          <div className="text-4xl text-gray-700 font-bold text-center">
+            <span className="font-thin italic">byte</span>
+            <span className="text-primary">bill</span>
+          </div>
+        </Link>
       </div>
 
       <div className="max-h-[100%] h-full flex justify-between items-center px-16 space-x-8 py-8">
@@ -173,7 +176,7 @@ export default function ReportExpensePage() {
             <>
               <label className="font-semibold text-2xl text-gray-400  absolute ">
                 Drop your file anywhere, or click to upload.
-                <p className="text-center">(Allowed Fyle Types: .jpg, .png)</p>
+                {/* <p className="text-center">(Allowed Fyle Types: .jpg, .png)</p> */}
               </label>
               <input
                 accept="image/png, image/jpeg"

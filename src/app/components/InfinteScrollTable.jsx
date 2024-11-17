@@ -44,7 +44,7 @@ export default function InfiniteScrollTable({ openExpense }) {
   };
 
   return (
-    <div className="container mx-auto h-full max-h-full overflow-y-auto rounded-lg mb-8">
+    <div className="container mx-auto h-full max-h-full overflow-y-auto rounded-lg mb-8 flex flex-col h-full">
       <div className="flex justify-end items-center my-2">
         <Link
           href="/report-expense"
@@ -90,7 +90,7 @@ export default function InfiniteScrollTable({ openExpense }) {
         {!visibleData.length && (
           <div className="h-[90%] flex-1 w-full flex justify-center items-center">
             <p className="text-4xl font-medium text-gray-700">
-              Add your <span className="text-primary">bills</span> to view your
+              Add <span className="text-primary">expenses</span> to view your
               data here!
             </p>
           </div>
