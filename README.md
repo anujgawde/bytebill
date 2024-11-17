@@ -1,9 +1,8 @@
 
-# Bytebill - Expense Management Feature
+
+# Bytebill
 
 Bytebill is a full-stack expense management application built with **Next.js**. This feature allows users to upload receipts (bills), extract relevant expense data, and manage their expenses seamlessly. Users can verify and edit extracted data, submit expenses, and view or manage their reported expenses.
-
----
 
 ## Features
 
@@ -20,16 +19,12 @@ Bytebill is a full-stack expense management application built with **Next.js**. 
 - **Editable Data**: Update expense details directly in the panel.
 - **Receipt Image**: View the original uploaded receipt for reference.
 
----
-
 ## Technologies Used
 
 - **Next.js**: Framework for building the frontend and backend (API integration).
 - **Microsoft Azure**: Document Intelligence model for extracting data from receipts.
 - **Firebase Storage**: For securely storing receipt images.
 - **TailwindCSS**: For responsive and modern styling.
-
----
 
 ## How It Works
 
@@ -45,16 +40,12 @@ Bytebill is a full-stack expense management application built with **Next.js**. 
 4. **Expense Details**:
    - Edit expense details or view the original uploaded receipt.
 
----
-
 ## Prerequisites
 
-- Node.js (v14 or later)
+- Node.js
 - Firebase account for image storage
 - Azure account with the Document Intelligence service configured
-- API key and endpoint for Azure Document Intelligence
-
----
+	- API key and endpoint for Azure Document Intelligence
 
 ## Installation
 
