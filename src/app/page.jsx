@@ -25,6 +25,8 @@ export default function Home() {
     );
 
     const expense = reportedExpenses.find((e) => e.id === expenseId);
+    setSelectedExpense(expense);
+    setIsPanelOpen(true);
 
     const listRef = ref(storage, `${expenseId}/`);
 
@@ -38,9 +40,6 @@ export default function Home() {
         // Handle any errors
         console.log(error);
       });
-
-    setSelectedExpense(expense);
-    setIsPanelOpen(true);
   };
 
   const closeExpensePanel = () => {
@@ -82,13 +81,13 @@ export default function Home() {
 
   return (
     <div className=" min-h-screen h-screen overflow-y-auto flex flex-col">
-      <div className="pt-6">
-        <Link href="/">
-          <div className="text-4xl text-gray-700 font-bold text-center">
+      <div className="py-4">
+        <div className="text-4xl text-gray-700 font-bold text-center">
+          <Link href="/">
             <span className="font-thin italic">byte</span>
             <span className="text-primary">bill</span>
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
 
       <InfiniteScrollTable openExpense={openExpensePanel} />
@@ -96,26 +95,36 @@ export default function Home() {
       <div
         className={`fixed overflow-y-auto top-0 right-0 h-full bg-white transition-transform duration-300 ease-in-out ${
           isPanelOpen ? "translate-x-0" : "translate-x-full"
-        } w-[70%] shadow-lg z-50`}
+        } w-[95%] lg:w-[70%] shadow-lg z-50`}
       >
-        {/* Close Button */}
-        <button
-          onClick={closeExpensePanel}
-          className="absolute top-4 right-4 text-gray-700 font-bold text-lg"
-        >
-          Close
-        </button>
-
         {/* Panel Content */}
         {selectedExpense && (
           <div className="p-8">
-            <p className="text-3xl">Receipt Details</p>
+            <div className="flex justify-between items-center">
+              <p className="text-3xl">Receipt Details</p>
 
+              <div className="flex">
+                {/* Close Button */}
+                <button
+                  onClick={closeExpensePanel}
+                  className=" text-gray-700 font-bold text-lg"
+                >
+                  <img className="h-8 w-8" src="/close.svg" />
+                </button>
+              </div>
+            </div>
             <div className="flex justify-center py-6">
-              <img
-                src={receiptUrl}
-                className="z-50 max-h-[500px] min-h-[500px] h-fit"
-              />
+              {receiptUrl ? (
+                <img
+                  src={receiptUrl}
+                  className="z-50 max-h-[500px] lg:min-h-[500px] min-h-[300px] h-fit"
+                />
+              ) : (
+                <div className="flex justify-center items-center h-[500px]">
+                  {" "}
+                  <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary"></div>
+                </div>
+              )}
             </div>
             <div className="space-y-2 my-4 overflow-y-auto ">
               <div className="space-y-1">
